@@ -49,11 +49,14 @@
 
             <div class="col-auto">
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
                     <label class="btn btn-outline-secondary" for="btnradio1">남성</label>
                   
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
                     <label class="btn btn-outline-secondary" for="btnradio2">여성</label>
+             
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" checked>
+                    <label class="btn btn-outline-secondary" for="btnradio3">공용</label>
              
                   </div>
             </div>
@@ -74,6 +77,9 @@
                             <th>
                                 가격
                             </th>
+                            <th>
+                                성별
+                            </th>
                         </tr>
                     
                         <!-- 열의 속성값을 나타내는 코드를 작성해주세요 (예 : 카테고리, 브랜드, 상품명, 가격) -->
@@ -86,20 +92,13 @@
     </div>
 
     <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center" id="paging-ul">
           <li class="page-item">
             <a class="page-link" href="#" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
+
         </ul>
     </nav>
     <!-- 페이지 네이션 코드를 넣어주세요 -->
@@ -114,26 +113,66 @@
     
 
    <script>
+
       // 크롤링한 데이터를 아래와 같은 형태의 객체 배열로 가정합니다.
       // 추후 데이터베이스에 있는 데이터를 쿼리문으로 불러 올 수 있게 쿼리르 작성해 볼 수 있음
       const data = [
-          { category: "상의", brand: 'Supreme', product: '슈프림 박스로고 후드티', price: '390,000' },
-          { category: "하의", brand: 'DIESEL', product: '디젤 트랙 팬츠', price: '188,000' },
-          { category: "신발", brand: 'Nike', product: '에어포스 1', price: '137,000' },
-          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000' },
+          { category: "상의", brand: 'Supreme', product: '슈프림 박스로고 후드티', price: '390,000', gender:'남'},
+          { category: "하의", brand: 'DIESEL', product: '디젤 트랙 팬츠', price: '188,000', gender:'남'},
+          { category: "신발", brand: 'Nike', product: '에어포스 1', price: '137,000', gender:'여'},
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' },
+          { category: "패션잡화", brand: 'Music&Goods', product: '빵빵이 키링', price: '29,000', gender:'여' },
+          { category: "상의", brand: 'Adidas', product: '로고 반팔티', price: '45,000', gender:'공용' },
+          { category: "하의", brand: 'UMBRO', product: '7부 팬츠', price: '60,000', gender:'공용' }
           // ...
       ];
       
       const dataTable = document.getElementById('data-table');
-      
+      /*
       data.forEach((item) => {
           const row = dataTable.insertRow();
           row.insertCell(0).innerHTML = item.category;
           row.insertCell(1).innerHTML = item.brand;
           row.insertCell(2).innerHTML = item.product;
           row.insertCell(3).innerHTML = item.price;
+          row.insertCell(4).innerHTML = item.gender;
       });
-
+*/
       var Target = document.getElementById("clock");
         function clock() {
             var time = new Date();
@@ -175,6 +214,61 @@
                 $('.mode-change-label').html('<i class="bi bi-moon-fill" style="font-size:1.5rem; margin-right:10px"></i>'+'<input onclick="darkMode()" role="switch" type="checkbox" class="mode-change-btn"/>');
             }            
         }
+
+        let totalPage = Math.ceil(data.length/5)
+
+        console.log('총 페이지 수 :'+ totalPage);
+
+        const currentPage = 1;
+        let pageCount = 5;
+
+        if(totalPage < 5) {
+            pageCount = totalPage;
+        }
+        
+        let pageGroup = Math.ceil(currentPage / pageCount)
+
+        let lastNumber = pageGroup * pageCount
+        if(lastNumber > totalPage) {
+            lastNumber = totalPage
+        }
+        let firstNumber = lastNumber - (pageCount -1)
+
+        const next = lastNumber + 1
+        const prev = firstNumber -1
+
+        for(let i = firstNumber; i <= lastNumber; i++) {
+            
+            $("#paging-ul").append(`<li class="page-item"><a class="page-link" id="p_${i}" onclick='paging(${i})' href="#">${i}</a></li>`)
+        }
+
+        $("#paging-ul").append(`<li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>`)
+
+
+        //첫 화면 1페이지로 조회로 시작
+        
+        paging(1)
+
+        function paging(pageNo)  {
+
+            $('#data-table').eq(0).empty(); //기존 페이징 rows 초기화
+
+            console.log("페이징 실행!" + pageNo +"페이지")
+
+            for(i = pageNo; i < pageNo + 5; i++) {
+                console.log("반복 횟수" + i)
+                const row = dataTable.insertRow();
+                row.insertCell(0).innerHTML = data[i].category;
+                row.insertCell(1).innerHTML = data[i].brand;
+                row.insertCell(2).innerHTML = data[i].product;
+                row.insertCell(3).innerHTML = data[i].price;
+                row.insertCell(4).innerHTML = data[i].gender;
+            }
+        }
+            
+          
+
+       
 
     </script>
 
